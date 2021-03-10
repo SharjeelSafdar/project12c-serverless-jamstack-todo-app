@@ -3,6 +3,7 @@ import { Link } from "gatsby";
 import { Button } from "@material-ui/core";
 import netlifyIdentity from "netlify-identity-widget";
 
+import { useIdentity } from "../../context/netlifyIdentityContext";
 import { useStyles } from "./styles";
 
 interface HeaderProps {
@@ -11,6 +12,7 @@ interface HeaderProps {
 
 const Header: FC<HeaderProps> = ({ siteTitle }) => {
   const classes = useStyles();
+  const { user } = useIdentity();
 
   return (
     <header className={classes.container}>
@@ -28,7 +30,7 @@ const Header: FC<HeaderProps> = ({ siteTitle }) => {
             onClick={() => netlifyIdentity.open()}
             className={classes.button}
           >
-            Login
+            {user ? "Logout" : "Login"}
           </Button>
         </nav>
       </div>
