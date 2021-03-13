@@ -13,10 +13,6 @@ export default {
   },
   plugins: [
     `gatsby-plugin-material-ui`,
-    {
-      resolve: `gatsby-plugin-create-client-paths`,
-      options: { prefixes: ["/app/*"] },
-    },
     `gatsby-plugin-react-helmet`,
     `gatsby-plugin-image`,
     {
