@@ -7,6 +7,7 @@ import React, {
 } from "react";
 import netlifyIdentity, { User } from "netlify-identity-widget";
 import { apolloClient } from "./apolloClient";
+import { navigate } from "gatsby";
 
 interface IdentityContextType {
   user: User | null;
@@ -31,6 +32,7 @@ export const IdentityProvider: FC = ({ children }) => {
   netlifyIdentity.on("logout", () => {
     setUser(null);
     apolloClient.resetStore();
+    navigate("/");
     netlifyIdentity.close();
   });
 
