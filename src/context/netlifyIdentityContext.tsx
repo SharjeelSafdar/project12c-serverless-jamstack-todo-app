@@ -6,7 +6,7 @@ import React, {
   useState,
 } from "react";
 import netlifyIdentity, { User } from "netlify-identity-widget";
-import { apolloClient } from "./apolloContext";
+import { apolloClient } from "./apolloClient";
 
 interface IdentityContextType {
   user: User | null;

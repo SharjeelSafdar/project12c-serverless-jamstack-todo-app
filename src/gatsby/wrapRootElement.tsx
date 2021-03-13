@@ -3,7 +3,7 @@ import { WrapRootElementBrowserArgs } from "gatsby";
 import { ApolloProvider } from "@apollo/client";
 
 import { IdentityProvider } from "../context/netlifyIdentityContext";
-import { apolloClient } from "../context/apolloContext";
+import { apolloClient } from "../context/apolloClient";
 
 export const wrapRootElement = ({ element }: WrapRootElementBrowserArgs) => (
   <ApolloProvider client={apolloClient}>
