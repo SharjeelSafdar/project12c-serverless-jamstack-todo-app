@@ -3,7 +3,7 @@ import { makeStyles, createStyles } from "@material-ui/core/styles";
 export const useStyles = makeStyles(theme =>
   createStyles({
     container: {
-      background: `rebeccapurple`,
+      background: theme.palette.primary.main,
       marginBottom: theme.spacing(4),
     },
     innerContainer: {
@@ -29,7 +29,7 @@ export const useStyles = makeStyles(theme =>
     button: {
       backgroundColor: "transparent",
       color: theme.palette.common.white,
-      marginLeft: 1,
+      marginLeft: theme.spacing(1),
     },
   })
 );
