@@ -15,13 +15,13 @@ The web app has been deployed to Netlify, and can be accessed [here](https://ser
 
 The following are some of the features of this project:
 
-- Email authentication with Netlify Identity
+- Email authentication with [Netlify Identity](https://docs.netlify.com/visitor-access/identity/)
 - A dashboard for a user to manage his/her todos
 - Fetches and displays the todos of the logged in user only
 - Possible interactions with todos: create a new todo, update an existing todo, delete a todo and toggle an existing todo's status
-- A GraphQL API hosted in a Netlify function to interact with FaunaDB
+- A GraphQL API hosted in a Netlify function to interact with [FaunaDB](https://fauna.com/)
 - Demonstrates CRUD operations using FaunDB through the GraphQL API
-- Store management with Apollo Client's InMemorCache
+- Store management with Apollo Client's [InMemorCache](https://www.apollographql.com/docs/react/caching/cache-configuration/)
 - Bootstrapped with [GatsbyJS](https://www.gatsbyjs.com/)
 - Additionally, includes TypeScript support for gatsby-config, gatsby-node, gatsby-browser and gatsby-ssr files
 - Site hosted on [Netlify](https://www.netlify.com/)
