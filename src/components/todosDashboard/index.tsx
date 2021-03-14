@@ -6,7 +6,7 @@ import TodoItem from "../todoItem";
 import { useGetAllTodosQuery } from "../../api";
 
 const TodosDashboard: FC = () => {
-  const { data, loading, error, refetch } = useGetAllTodosQuery();
+  const { data, loading, error } = useGetAllTodosQuery();
 
   return (
     <Container maxWidth="sm">
@@ -14,14 +14,12 @@ const TodosDashboard: FC = () => {
       {error && <p>Something went wrong...</p>}
       {!loading && !error && data && (
         <>
-          <NewTodo refetchTodos={refetch} />
+          <NewTodo />
           <Box marginTop={3}>
             {data.todos.length === 0 ? (
               <p>There are no tasks; enjoy. ;)</p>
             ) : (
-              data.todos.map(todo => (
-                <TodoItem key={todo.id} todo={todo} refetchTodos={refetch} />
-              ))
+              data.todos.map(todo => <TodoItem key={todo.id} todo={todo} />)
             )}
           </Box>
         </>

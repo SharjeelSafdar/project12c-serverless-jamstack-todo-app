@@ -3,26 +3,17 @@ import { Container, Box, IconButton, Typography } from "@material-ui/core";
 import { BsCircle, BsCheckCircle } from "react-icons/bs";
 import { AiTwotoneDelete } from "react-icons/ai";
 import { MdEdit } from "react-icons/md";
-import { ApolloQueryResult } from "@apollo/client";
 
 import EditTodoModal from "../editTodoModal";
-import {
-  useToggleTodoStatusMutation,
-  useDeleteTodoMutation,
-  GetAllTodosQueryVariables,
-  GetAllTodosQueryResponse,
-} from "../../api";
+import { useToggleTodoStatusMutation, useDeleteTodoMutation } from "../../api";
 import { useStyles } from "./styles";
 import { Todo } from "../../types/types";
 
 interface TodoItemProps {
   todo: Todo;
-  refetchTodos: (
-    variables?: Partial<GetAllTodosQueryVariables> | undefined
-  ) => Promise<ApolloQueryResult<GetAllTodosQueryResponse>>;
 }
 
-const TodoItem: FC<TodoItemProps> = ({ todo, refetchTodos }) => {
+const TodoItem: FC<TodoItemProps> = ({ todo }) => {
   const classes = useStyles();
   const [showEditTaskModal, setShowEditTaskModal] = useState(false);
   const [
@@ -41,7 +32,6 @@ const TodoItem: FC<TodoItemProps> = ({ todo, refetchTodos }) => {
   const deleteTodoHandler = async () => {
     const res = await deleteTodo({ variables: { id: todo.id } });
     console.log("Todo Deleted", res?.data);
-    refetchTodos();
   };
 
   return (

@@ -51,7 +51,9 @@ export const CREATE_NEW_TODO = gql`
   }
 `;
 
-export type CreateNewTodoMutationResponse = Todo;
+export type CreateNewTodoMutationResponse = {
+  createTodo: Todo;
+};
 
 export type CreateNewTodoMutationVariables = {
   content: string;
@@ -66,7 +68,21 @@ export const useCreateTodoMutation = (
   return useMutation<
     CreateNewTodoMutationResponse,
     CreateNewTodoMutationVariables
-  >(CREATE_NEW_TODO, baseOptions);
+  >(CREATE_NEW_TODO, {
+    update: (cache, { data }) => {
+      if (data) {
+        const existingTodos = cache.readQuery<GetAllTodosQueryResponse>({
+          query: GET_ALL_TODOS,
+        }) || { todos: [] };
+
+        cache.writeQuery({
+          data: { todos: [...existingTodos.todos, data.createTodo] },
+          query: GET_ALL_TODOS,
+        });
+      }
+    },
+    ...baseOptions,
+  });
 };
 
 // **************************************
@@ -82,7 +98,9 @@ export const UPDATE_TODO_CONTENT = gql`
   }
 `;
 
-export type UpdateTodoContentMutationResponse = Todo;
+export type UpdateTodoContentMutationResponse = {
+  editTodoContent: Todo;
+};
 
 export type UpdateTodoContentMutationVariables = {
   id: string;
@@ -114,7 +132,9 @@ export const TOGGLE_TODO_STATUS = gql`
   }
 `;
 
-export type ToggleTodoStatusMutationResponse = Todo;
+export type ToggleTodoStatusMutationResponse = {
+  toggleTodoStatus: Todo;
+};
 
 export type ToggleTodoStatusMutationVariables = {
   id: string;
@@ -146,7 +166,9 @@ export const DELETE_TODO = gql`
   }
 `;
 
-export type DeleteTodoMutationResponse = Todo;
+export type DeleteTodoMutationResponse = {
+  deleteTodo: Todo;
+};
 
 export type DeleteTodoMutationVariables = {
   id: string;
@@ -160,6 +182,26 @@ export const useDeleteTodoMutation = (
 ) => {
   return useMutation<DeleteTodoMutationResponse, DeleteTodoMutationVariables>(
     DELETE_TODO,
-    baseOptions
+    {
+      update: (cache, { data }) => {
+        if (data) {
+          const existingTodos = cache.readQuery<GetAllTodosQueryResponse>({
+            query: GET_ALL_TODOS,
+          }) || { todos: [] };
+
+          const remainingTodos = existingTodos.todos.filter(
+            todo => todo.id !== data.deleteTodo.id
+          );
+
+          cache.writeQuery({
+            data: {
+              todos: [...remainingTodos],
+            },
+            query: GET_ALL_TODOS,
+          });
+        }
+      },
+      ...baseOptions,
+    }
   );
 };
